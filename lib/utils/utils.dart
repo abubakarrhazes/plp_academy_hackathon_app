@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plp_academy_hackathon_app/screens/todo_methods/todo_methods.dart';
 
-class Utils{
-
-
+class Utils {
   final TodoMethods todoMethods = TodoMethods();
 
   // Method to show dialog for adding a new task

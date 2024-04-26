@@ -1,53 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:plp_academy_hackathon_app/models/todo_model.dart';
 
-
 enum TaskCategory {
   all,
   completed,
   pending,
 }
 
-class TodoMethods{
-
-
+class TodoMethods {
   List<TodoModel> todosList = TodoModel.todoListTasks(); // List of all tasks
   List<TodoModel> foundToDo = []; // List of tasks to display based on category
   TaskCategory _selectedCategory = TaskCategory.all;
 
-
-
-
-
   // Method to update the displayed tasks based on selected category
   void _updateTasks() {
-
-      switch (_selectedCategory) {
-        case TaskCategory.all:
-          _foundToDo = todosList; // Display all tasks
-          break;
-        case TaskCategory.completed:
-          _foundToDo = todosList.where((todo) => todo.isChecked).toList(); // Display completed tasks
-          break;
-        case TaskCategory.pending:
-          _foundToDo = todosList.where((todo) => !todo.isChecked).toList(); // Display pending tasks
-          break;
-      }
+    switch (_selectedCategory) {
+      case TaskCategory.all:
+        foundToDo = todosList; // Display all tasks
+        break;
+      case TaskCategory.completed:
+        foundToDo = todosList
+            .where((todo) => todo.isChecked)
+            .toList(); // Display completed tasks
+        break;
+      case TaskCategory.pending:
+        foundToDo = todosList
+            .where((todo) => !todo.isChecked)
+            .toList(); // Display pending tasks
+        break;
+    }
   }
 
   // Method to handle task completion status change
   void handleToDoChange(todo) {
-
-      todo.isChecked = !todo.isDone; // Toggle completion status
-      _updateTasks(); // Update displayed tasks after status change
+    todo.isChecked = !todo.isDone; // Toggle completion status
+    _updateTasks(); // Update displayed tasks after status change
   }
 
   // Method to handle task deletion
   void deleteToDoItem(String id) {
-
-      todosList.removeWhere((item) => item.todoId == id); // Remove task from list
-      _updateTasks(); // Update displayed tasks after deletion
-
+    todosList.removeWhere((item) => item.todoId == id); // Remove task from list
+    _updateTasks(); // Update displayed tasks after deletion
   }
 
   // Method to add a new task to the list
@@ -65,21 +58,17 @@ class TodoMethods{
 
       // Add the new task to the todosList
 
-        todosList.add(newTask);
-        _updateTasks(); // Update the displayed tasks list
-
+      todosList.add(newTask);
+      _updateTasks(); // Update the displayed tasks list
     }
   }
 
   // Method to set the selected task category
   void setSelectedCategory(TaskCategory category, BuildContext context) {
-
-      _selectedCategory = category; // Update selected category
-      _updateTasks(); // Update displayed tasks based on new category
-
+    _selectedCategory = category; // Update selected category
+    _updateTasks(); // Update displayed tasks based on new category
 
     // Close the drawer and navigate to the tasks screen
     Navigator.pop(context); // Close the drawer
   }
-
 }

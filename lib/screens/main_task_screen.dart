@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plp_academy_hackathon_app/screens/todo_methods/todo_methods.dart';
 import 'package:plp_academy_hackathon_app/utils/utils.dart';
+import 'package:plp_academy_hackathon_app/widgets/task_items.dart';
 
 class MainTaskScreen extends StatefulWidget {
   const MainTaskScreen({super.key});
@@ -41,24 +44,27 @@ class _MainTaskScreenState extends State<MainTaskScreen> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage("assets/profile.jpeg"),
               ),
-              accountName: Text("Student"),
+              accountName: Text("Abubakar Nuuman Adam"),
               accountEmail: Text("anuuman@gmail.com"),
             ),
             // Drawer menu items for different task categories
             ListTile(
               title: Text("All Tasks"),
               leading: Icon(Icons.menu_outlined),
-              onTap: () => todoMethods.setSelectedCategory(TaskCategory.all, context),
+              onTap: () =>
+                  todoMethods.setSelectedCategory(TaskCategory.all, context),
             ),
             ListTile(
               title: Text("Completed Tasks"),
               leading: Icon(Icons.check_box),
-              onTap: () => todoMethods.setSelectedCategory(TaskCategory.completed, context),
+              onTap: () => todoMethods.setSelectedCategory(
+                  TaskCategory.completed, context),
             ),
             ListTile(
               title: Text("Pending Tasks"),
               leading: Icon(Icons.incomplete_circle),
-              onTap: () => todoMethods.setSelectedCategory(TaskCategory.pending, context),
+              onTap: () => todoMethods.setSelectedCategory(
+                  TaskCategory.pending, context),
             ),
             ListTile(
               title: Text("Help"),
@@ -94,7 +100,7 @@ class _MainTaskScreenState extends State<MainTaskScreen> {
                     size: 20,
                   ),
                   prefixIconConstraints:
-                  BoxConstraints(maxHeight: 20, minWidth: 25),
+                      BoxConstraints(maxHeight: 20, minWidth: 25),
                   border: InputBorder.none,
                   hintText: "Search",
                   hintStyle: TextStyle(color: Colors.grey),
@@ -105,14 +111,14 @@ class _MainTaskScreenState extends State<MainTaskScreen> {
             Expanded(
               child: ListView.builder(
                 itemCount: todoMethods.foundToDo.length,
-                itemBuilder: (context, index) => ToDoItem(
-                  todo: todoMethods.foundToDo[index],
-                  onToDoChanged: (value){
+                itemBuilder: (context, index) => TaskItems(
+                  todoModel: todoMethods.foundToDo[index],
+                  onToDoChanged: (value) {
                     setState(() {
                       todoMethods.handleToDoChange(value);
                     });
                   },
-                  onDeleteItem: (value){
+                  onDeleteItem: (value) {
                     setState(() {
                       todoMethods.deleteToDoItem(value);
                     });
@@ -128,7 +134,6 @@ class _MainTaskScreenState extends State<MainTaskScreen> {
         onPressed: () {
           // Show the dialog to add a new task
           utils.showAddTaskDialog(context);
-
         },
         tooltip: 'Add New Task',
         child: Icon(Icons.add),
